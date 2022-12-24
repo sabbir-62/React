@@ -26,7 +26,10 @@ import React from "react";
     //   }
     // }
 
-    state = {date: new Date()}
+    state = {
+      date: new Date(),
+      locale: "bn-BD"
+    }
     
     componentDidMount(){
       this.clockTimer = setInterval(() => {
@@ -38,6 +41,11 @@ import React from "react";
       clearInterval(this.clockTimer)
     }
 
+    handleClick = (locale) => {
+      this.setState({
+        locale: locale
+      })
+    }
 
     tick(){
       this.setState({
@@ -46,8 +54,13 @@ import React from "react";
     }
 
     render(){
+       const {locale} = this.state;
       return(
-        <h1>{new Date().toLocaleTimeString(this.props.locale)}</h1>
+        <div>
+          <h1>{new Date().toLocaleTimeString(locale)}</h1>
+          <button type="button" onClick={this.handleClick.bind(this, 'en-US')}>Click Me</button>
+          <button type="button" onClick={() => this.handleClick('en-US')}>Click Me</button>
+        </div>
       );
     }
   }
